@@ -4,9 +4,9 @@ with open("input") as f:
 draws = list(map(int, input[0].split(",")))
 boards = [
     list(
-        map(lambda r_str: list(map(lambda el: [int(el), False], r_str.split())), r_str)
+        map(lambda r_str: list(map(lambda el: [int(el), False], r_str.split())), b_str)
     )
-    for r_str in [b.split("\n") for b in input[1:]]
+    for b_str in [b.split("\n") for b in input[1:]]
 ]
 
 
