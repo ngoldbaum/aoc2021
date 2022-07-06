@@ -3,42 +3,47 @@ with open("input") as f:
 
 draws = list(map(int, input[0].split(",")))
 boards = [
-    list(map(lambda r_str: list(map(int, r_str.split())), r_str))
+    list(
+        map(lambda r_str: list(map(lambda el: [int(el), False], r_str.split())), r_str)
+    )
     for r_str in [b.split("\n") for b in input[1:]]
 ]
-marks = [[[False for _ in range(5)] for _ in range(5)] for _ in range(len(boards))]
 
 
-def mark(boards, marks, draw):
-    for i, board in enumerate(boards):
-        for j, row in enumerate(board):
-            for k, el in enumerate(row):
-                if el == draw:
-                    marks[i][j][k] = True
+def mark(boards, draw):
+    for board in boards:
+        for row in board:
+            for el in row:
+                if el[0] == draw:
+                    el[1] = True
 
 
-def get_winning_score(board, marks):
+def get_winning_score(board):
     score = 0
-    for row, row_marks in zip(board, marks):
-        for el, mark in zip(row, row_marks):
-            if mark is False:
-                score += el
+    for row in board:
+        for el in row:
+            if el[1] is False:
+                score += el[0]
     return score
 
 
-def score(boards, marks):
+def check_marks(el):
+    return el[1]
+
+
+def score(boards):
     ret = []
-    for i, (board, mark_rows) in enumerate(zip(boards, marks)):
-        mark_columns = list(zip(*mark_rows))
-        for mark_row, mark_column in zip(mark_rows, mark_columns):
-            if all(mark_row) or all(mark_column):
-                ret.append((i, get_winning_score(board, mark_rows)))
+    for i, board in enumerate(boards):
+        board_t = list(zip(*board))
+        for board_row, board_column in zip(board, board_t):
+            if all(map(check_marks, board_row)) or all(map(check_marks, board_column)):
+                ret.append((i, get_winning_score(board)))
     return ret
 
 
 for draw in draws:
-    mark(boards, marks, draw)
-    winners = score(boards, marks)
+    mark(boards, draw)
+    winners = score(boards)
     if winners:
         # reverse sort by index since we delete winning boards below, this
         # avoids corrupting the board index as we delete boards
@@ -48,4 +53,3 @@ for draw in draws:
                 f"board {winner_board} won with score {winner_score*draw} on draw {draw}"
             )
             del boards[winner_board]
-            del marks[winner_board]
