@@ -22,19 +22,9 @@ for line in lines:
         )
 
 
-def get_score(char):
-    match char:
-        case ")":
-            return 3
-        case "]":
-            return 57
-        case "}":
-            return 1197
-        case ">":
-            return 25137
+closing_scores = {")": 3, "]": 57, "}": 1197, ">": 25137}
 
-
-score = sum(map(get_score, illegal_characters))
+score = sum(map(lambda x: closing_scores[x], illegal_characters))
 
 print(f"part 1: {score}")
 
