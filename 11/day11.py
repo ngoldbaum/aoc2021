@@ -1,7 +1,5 @@
 with open("input") as f:
-    grid_orig = [list(map(int, line.strip())) for line in f.readlines()]
-
-grid = [line.copy() for line in grid_orig]
+    grid = [list(map(int, line.strip())) for line in f.readlines()]
 
 height = len(grid)
 width = len(grid[0])
@@ -61,9 +59,7 @@ for n in range(num_timesteps):
 
 print(f"part 1: {num_flashes}")
 
-grid = [line.copy() for line in grid_orig]
-
-n = 0
+n = num_timesteps
 
 while num_flashes != width * height:
     num_flashes = timestep(grid)
