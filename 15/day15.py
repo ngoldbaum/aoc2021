@@ -36,13 +36,11 @@ for j in range(height):
             risk = risk % 9
         full_risk_map[j].append(risk)
 
-
 distance = defaultdict(lambda: inf)
 
 distance[(0, 0)] = 0
 
 target = (width - 1, height - 1)
-
 
 heapq.heappush(pq := [], (0, (0, 0)))
 
