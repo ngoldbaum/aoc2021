@@ -1,7 +1,6 @@
 from collections import defaultdict
 from math import inf
 import heapq
-import itertools
 
 
 def get_neighbors(i, j, width, height):
