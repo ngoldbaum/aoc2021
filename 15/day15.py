@@ -43,7 +43,8 @@ distance[(0, 0)] = 0
 
 target = (width - 1, height - 1)
 
-pq = [(0, (0, 0))]
+
+heapq.heappush(pq := [], (0, (0, 0)))
 
 while pq:
     current_distance, current_vertex = heapq.heappop(pq)
