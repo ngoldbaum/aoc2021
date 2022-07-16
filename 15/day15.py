@@ -1,3 +1,4 @@
+from collections import defaultdict
 from math import inf
 import heapq
 import itertools
@@ -37,12 +38,7 @@ for j in range(height):
         full_risk_map[j].append(risk)
 
 
-distance = {
-    u_coord: inf
-    for u_coord in set(
-        (i, j) for (i, j) in itertools.product(range(width), range(height))
-    )
-}
+distance = defaultdict(lambda: inf)
 
 distance[(0, 0)] = 0
 
